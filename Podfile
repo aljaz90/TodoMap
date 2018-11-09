@@ -8,4 +8,6 @@ target 'TodoMap' do
   # Pods for TodoMap
   pod 'SVProgressHUD'
   pod 'ChameleonFramework'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 end
