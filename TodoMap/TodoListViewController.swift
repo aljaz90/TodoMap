@@ -16,6 +16,8 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let todosRef = Database.database().reference(withPath: "Todos")
+        todosRef.keepSynced(true)
         getTodos()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -69,6 +71,10 @@ class TodoListViewController: UITableViewController {
             SVProgressHUD.dismiss()
         }
         
+    }
+    
+    func makeToast(message: String){
+    
     }
     
     @IBAction func addNewItem(_ sender: Any) {

@@ -10,4 +10,5 @@ target 'TodoMap' do
   pod 'ChameleonFramework'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Toast-Swift', '~> 4.0.0'
 end
