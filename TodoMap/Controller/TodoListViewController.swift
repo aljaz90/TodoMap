@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SVProgressHUD
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: UITableViewController, UISearchBarDelegate {
 
     var itemArray : [Todo] = []
     
@@ -72,13 +72,11 @@ class TodoListViewController: UITableViewController {
         
         
         db.observe(.childAdded) { (snapshot) in
-            print("INFO: \(snapshot.childrenCount)")
             if !(snapshot.hasChildren()) {
                 SVProgressHUD.dismiss()
                 
                 return;
             }
-            print("EXECUTED")
             let data = snapshot.value as! NSDictionary
             
             
@@ -139,6 +137,26 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let strSearch = searchBar.text!.lowercased()
+        
+        if strSearch.isEmpty {
+            itemArray = []
+            getTodos()
+            return;
+        }
+        
+        let newArray = itemArray.filter { $0.text.lowercased().contains(strSearch) }
+        itemArray = newArray
+        tableView.reloadData()
+        
+    }
+    @IBAction func showSearchBar(_ sender: Any) {
+        UIView.animate(withDuration: 3.0) {
+            
+        }
+    }
+    
 }
 
