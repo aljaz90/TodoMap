@@ -12,7 +12,6 @@ import Firebase
 class CategoryViewController: UITableViewController {
     
     var categoryArray : [TodoCategory] = []
-    var senderData : String = ""
     
     override func viewDidLoad() {
         
@@ -81,14 +80,17 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        senderData = categoryArray[indexPath.row].id
         performSegue(withIdentifier: "goToTodos", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToTodos" {
             let todoVC = segue.destination as! TodoListViewController
-            todoVC.categoryID = senderData
+            //todoVC.categoryID = senderData
+            if let indexPath = tableView.indexPathForSelectedRow {
+                todoVC.category = categoryArray[indexPath.row]
+            }
+            
         }
     }
 }

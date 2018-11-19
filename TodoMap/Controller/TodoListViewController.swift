@@ -12,8 +12,14 @@ import SVProgressHUD
 
 class TodoListViewController: UITableViewController, UISearchBarDelegate {
 
+    @IBOutlet weak var navigation: UINavigationItem!
     var itemArray : [Todo] = []
-    var categoryID : String = ""
+    var category : TodoCategory? {
+        didSet{
+            getTodos()
+            navigation.title = category?.name
+        }
+    }
     
     override func viewDidLoad() {
         
@@ -21,8 +27,6 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         
         let todosRef = Database.database().reference(withPath: "Todos")
         let connectedRef = Database.database().reference(withPath: ".info/connected")
-        print("INFO: Category - \(categoryID)")
-        //createSearchBar()
         
         connectedRef.observe(.value, with: { snapshot in
             if snapshot.value as? Bool ?? false {
@@ -33,7 +37,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         })
         
         todosRef.keepSynced(true)
-        getTodos()
+        //getTodos()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,7 +88,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             
             let todo = Todo(text1: data["text"] as! String, id1: snapshot.key, done1: data["done"] as! Bool, categoryID1: data["categoryID"] as! String)
             
-            if data["categoryID"] as! String == self.categoryID {
+            if data["categoryID"] as! String == self.category?.id {
                 self.itemArray.append(todo)
             }
             self.tableView.reloadData()
@@ -120,7 +124,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             //self.itemArray.append(textField.text!)
             //self.tableView.reloadData()
             let db = Database.database().reference().child("Todos")
-            let todo = ["text": textField.text!, "done": false, "categoryID": self.categoryID] as [String : Any]
+            let todo = ["text": textField.text!, "done": false, "categoryID": self.category?.id] as [String : Any]
             db.childByAutoId().setValue(todo){
                 (error, reference) in
                 if error != nil {
