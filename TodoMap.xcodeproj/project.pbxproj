@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		44216BDC21955BC9001779DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44216BDB21955BC9001779DA /* GoogleService-Info.plist */; };
 		44355B062197491300CD6160 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44355B052197491300CD6160 /* Todo.swift */; };
+		4453C4FD21A0B338004C7096 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453C4FC21A0B338004C7096 /* CategoryViewController.swift */; };
+		4453C4FF21A180CE004C7096 /* TodoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453C4FE21A180CE004C7096 /* TodoCategory.swift */; };
 		44EC3FE221937DA300365F89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EC3FE121937DA300365F89 /* AppDelegate.swift */; };
 		44EC3FE421937DA300365F89 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EC3FE321937DA300365F89 /* TodoListViewController.swift */; };
 		44EC3FE721937DA300365F89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44EC3FE521937DA300365F89 /* Main.storyboard */; };
@@ -21,6 +23,8 @@
 		392E3A46E9B7B2502DED6D28 /* Pods_TodoMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44216BDB21955BC9001779DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44355B052197491300CD6160 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		4453C4FC21A0B338004C7096 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		4453C4FE21A180CE004C7096 /* TodoCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCategory.swift; sourceTree = "<group>"; };
 		44EC3FDE21937DA300365F89 /* TodoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44EC3FE121937DA300365F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44EC3FE321937DA300365F89 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				44355B052197491300CD6160 /* Todo.swift */,
+				4453C4FE21A180CE004C7096 /* TodoCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -74,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				44EC3FE121937DA300365F89 /* AppDelegate.swift */,
+				4453C4FC21A0B338004C7096 /* CategoryViewController.swift */,
 				44EC3FE321937DA300365F89 /* TodoListViewController.swift */,
 			);
 			path = Controller;
@@ -249,6 +255,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4453C4FF21A180CE004C7096 /* TodoCategory.swift in Sources */,
+				4453C4FD21A0B338004C7096 /* CategoryViewController.swift in Sources */,
 				44EC3FE421937DA300365F89 /* TodoListViewController.swift in Sources */,
 				44355B062197491300CD6160 /* Todo.swift in Sources */,
 				44EC3FE221937DA300365F89 /* AppDelegate.swift in Sources */,

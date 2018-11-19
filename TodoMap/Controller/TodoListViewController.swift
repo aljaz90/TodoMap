@@ -13,6 +13,7 @@ import SVProgressHUD
 class TodoListViewController: UITableViewController, UISearchBarDelegate {
 
     var itemArray : [Todo] = []
+    var categoryID : String = ""
     
     override func viewDidLoad() {
         
@@ -20,6 +21,8 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         
         let todosRef = Database.database().reference(withPath: "Todos")
         let connectedRef = Database.database().reference(withPath: ".info/connected")
+        print("INFO: Category - \(categoryID)")
+        //createSearchBar()
         
         connectedRef.observe(.value, with: { snapshot in
             if snapshot.value as? Bool ?? false {
@@ -79,10 +82,11 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             }
             let data = snapshot.value as! NSDictionary
             
+            let todo = Todo(text1: data["text"] as! String, id1: snapshot.key, done1: data["done"] as! Bool, categoryID1: data["categoryID"] as! String)
             
-            let todo = Todo(text1: data["text"] as! String, id1: snapshot.key, done1: data["done"] as! Bool)
-        
-            self.itemArray.append(todo)
+            if data["categoryID"] as! String == self.categoryID {
+                self.itemArray.append(todo)
+            }
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
         }
@@ -116,7 +120,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             //self.itemArray.append(textField.text!)
             //self.tableView.reloadData()
             let db = Database.database().reference().child("Todos")
-            let todo = ["text": textField.text!, "done": false] as [String : Any]
+            let todo = ["text": textField.text!, "done": false, "categoryID": self.categoryID] as [String : Any]
             db.childByAutoId().setValue(todo){
                 (error, reference) in
                 if error != nil {
@@ -137,9 +141,9 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        let strSearch = searchBar.text!.lowercased()
+        let strSearch = searchText.lowercased()
         
         if strSearch.isEmpty {
             itemArray = []
@@ -152,11 +156,34 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
         
     }
-    @IBAction func showSearchBar(_ sender: Any) {
-        UIView.animate(withDuration: 3.0) {
-            
+    /* Search Bar Animation and Search */
+    /*
+    @IBAction func searchButtonPressed(_ sender: Any) {
+        self.navigationItem.titleView = searchBar
+        
+        UIView.animate(withDuration: 0.3) {
+            self.searchBar.alpha = 1
         }
     }
     
+    //MARK: UISearchBarDelegate
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.navigationItem.title = "Hello"
+        UIView.animate(withDuration: 0.2) {
+            self.searchBar.alpha = 0
+        }
+        
+    }
+    
+    func createSearchBar(){
+        
+        searchBar.alpha = 0
+        searchBar.showsCancelButton = true
+        searchBar.placeholder = "Search for Todos"
+        searchBar.delegate = self
+        
+        
+    }
+    */
 }
 
