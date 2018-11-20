@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 class Toast {
 	
-	init(message : String, backgroundColor: UIColor = UIColor.black, color: UIColor = UIColor.white, time: Double = 4.0){
-		let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: 15, width: 150, height: 35))
+    func show(view: UIView,message: String, backgroundColor: UIColor = UIColor.black, color: UIColor = UIColor.white, time: Double = 4.0){
+		let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 75, y: 15, width: 150, height: 35))
         toastLabel.backgroundColor = backgroundColor.withAlphaComponent(0.6)
         toastLabel.textColor = color
         toastLabel.textAlignment = .center;
@@ -20,7 +21,7 @@ class Toast {
         toastLabel.alpha = 1.0
         toastLabel.layer.cornerRadius = 10;
         toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
+        view.addSubview(toastLabel)
         UIView.animate(withDuration: time, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in

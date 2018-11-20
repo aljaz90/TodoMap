@@ -12,6 +12,7 @@ import Firebase
 class CategoryViewController: UITableViewController {
     
     var categoryArray : [TodoCategory] = []
+    let toast = Toast()
     
     override func viewDidLoad() {
         
@@ -25,14 +26,10 @@ class CategoryViewController: UITableViewController {
     
     func getData(){
         let db = Database.database().reference().child("Categories")
-        print("KALED")
         db.observe(.childAdded) { (snapshot) in
             let data = snapshot.value as! NSDictionary
-            print("KALED BEFORE APPEND")
             self.categoryArray.append(TodoCategory(name1: data["name"] as! String, id1: snapshot.key))
-            print("KALED BEFORE RELOAD")
             self.tableView.reloadData()
-            print("KALED AFTER RELOAD")
         }
     }
 /*
