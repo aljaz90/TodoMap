@@ -88,7 +88,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             
             let todo = Todo(text1: data["text"] as! String, id1: snapshot.key, done1: data["done"] as! Bool, categoryID1: data["categoryID"] as! String)
             
-            if data["categoryID"] as! String == self.category?.id {
+            if data["categoryID"] as? String == self.category?.id {
                 self.itemArray.append(todo)
             }
             self.tableView.reloadData()
@@ -124,7 +124,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             //self.itemArray.append(textField.text!)
             //self.tableView.reloadData()
             let db = Database.database().reference().child("Todos")
-            let todo = ["text": textField.text!, "done": false, "categoryID": self.category?.id] as [String : Any]
+            let todo = ["text": textField.text!, "done": false, "categoryID": self.category?.id ?? "no-cat"] as [String : Any]
             db.childByAutoId().setValue(todo){
                 (error, reference) in
                 if error != nil {
