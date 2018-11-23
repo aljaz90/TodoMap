@@ -90,8 +90,8 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
                 return;
             }
             let data = snapshot.value as! NSDictionary
-            
-            let todo = Todo(text1: data["text"] as! String, id1: snapshot.key, done1: data["done"] as! Bool, categoryID1: data["categoryID"] as! String)
+            print("INFO: \(data)")
+            let todo = Todo(text1: data["text"] as? String ?? "Nil", id1: snapshot.key, done1: data["done"] as? Bool ?? false, categoryID1: data["categoryID"] as? String ?? "IDK")
             
             if data["categoryID"] as? String == self.category?.id {
                 self.itemArray.append(todo)
