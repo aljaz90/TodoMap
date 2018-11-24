@@ -9,17 +9,21 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import ChameleonFramework
 
-class TodoListViewController: UITableViewController, UISearchBarDelegate {
+class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     let toast = Toast()
+    var db : DatabaseReference = Database.database().reference()
     
     @IBOutlet weak var navigation: UINavigationItem!
     var itemArray : [Todo] = []
     var category : TodoCategory? {
         didSet{
+            db = Database.database().reference().child("Categories").child(category?.id ?? "NIL").child("Todos")
             getTodos()
             navigation.title = category?.name
+            navigationController?.navigationBar.barTintColor = UIColor(hexString: category?.color ?? "#4682b4")
         }
     }
     
@@ -27,7 +31,9 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         
         super.viewDidLoad()
         
-        let todosRef = Database.database().reference(withPath: "Todos")
+        let todosRef = Database.database().reference(withPath: "Categories")
+        todosRef.keepSynced(true)
+        
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         
         connectedRef.observe(.value, with: { snapshot in
@@ -39,10 +45,10 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
             }
         })
         
-        todosRef.keepSynced(true)
+        
         //getTodos()
     }
-    
+    // MARK: - Default Table View Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemArray.count
     }
@@ -50,33 +56,33 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = itemArray[indexPath.row].text
         cell.accessoryType = (itemArray[indexPath.row].done) ? .checkmark : .none
-        cell.tintColor = UIColor.black
+        let backgrgoundColor = UIColor.init(hexString: category?.color ?? "#000000")?.lighten(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count))
+        cell.backgroundColor = backgrgoundColor
+
+        cell.textLabel?.textColor = ContrastColorOf(backgrgoundColor!, returnFlat: true)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let todo_id = itemArray[indexPath.row].id
-        print(todo_id)
-        let db = Database.database().reference().child("Todos").child(todo_id)
         
         tableView.deselectRow(at: indexPath, animated: true)
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        db.updateChildValues(["done": itemArray[indexPath.row].done])
+        db.child(todo_id).updateChildValues(["done": itemArray[indexPath.row].done])
         tableView.reloadData()
     }
+
+    // MARK: - Getting todos from DB
     
     func getTodos() {
         
-        let db = Database.database().reference().child("Todos")
         SVProgressHUD.show()
         db.observe(.value) { (snapshot) in
             if !snapshot.hasChildren(){
-                
-                self.toast.show(view: self.view, message: "You dont have any todos. Hmm… Maybe you should Create some.", backgroundColor: UIColor.blue, time: 10.0)
                 SVProgressHUD.dismiss()
             }
             return;
@@ -84,18 +90,11 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         
         
         db.observe(.childAdded) { (snapshot) in
-            if !(snapshot.hasChildren()) {
-                SVProgressHUD.dismiss()
-                
-                return;
-            }
-            let data = snapshot.value as! NSDictionary
-            print("INFO: \(data)")
-            let todo = Todo(text1: data["text"] as? String ?? "Nil", id1: snapshot.key, done1: data["done"] as? Bool ?? false, categoryID1: data["categoryID"] as? String ?? "IDK")
             
-            if data["categoryID"] as? String == self.category?.id {
-                self.itemArray.append(todo)
-            }
+            let data = snapshot.value as! NSDictionary
+            let todo = Todo(text1: data["text"] as? String ?? "Nil", id1: snapshot.key, done1: data["done"] as? Bool ?? false)
+            
+            self.itemArray.append(todo)
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
         }
@@ -108,9 +107,9 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         let alert = UIAlertController(title: "Add a Todo", message: "Enter a Todo", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Todo", style: .default) { (action) in
             
-            let db = Database.database().reference().child("Todos")
-            let todo = ["text": textField.text!, "done": false, "categoryID": self.category?.id ?? "no-cat"] as [String : Any]
-            db.childByAutoId().setValue(todo){
+            
+            let todo = ["text": textField.text!, "done": false] as [String : Any]
+            self.db.childByAutoId().setValue(todo){
                 (error, reference) in
                 if error != nil {
                     print(error!)
@@ -132,7 +131,6 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         let strSearch = searchText.lowercased()
-        
         if strSearch.isEmpty {
             itemArray = []
             getTodos()
@@ -142,7 +140,6 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         let newArray = itemArray.filter { $0.text.lowercased().contains(strSearch) }
         itemArray = newArray
         tableView.reloadData()
-        
     }
     /* Search Bar Animation and Search */
     /*
@@ -173,5 +170,20 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate {
         
     }
     */
+    
+    // MARK: - Deleting Todo
+    override func updateModel(at indexPath: IndexPath) {
+        
+        if let todoForDeletion = self.itemArray[indexPath.row].id as String? {
+            db.child(todoForDeletion).removeValue(){
+                (error, ref) in
+                if error != nil {
+                    print("Something went wring deleting todo: \(error!)")
+                }
+            }
+            
+            self.itemArray.remove(at: indexPath.row)
+        }
+    }
 }
 

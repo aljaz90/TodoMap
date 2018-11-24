@@ -8,9 +8,9 @@
 
 import UIKit
 import Firebase
-import SwipeCellKit
+import ChameleonFramework
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     var categoryArray : [TodoCategory] = []
     let toast = Toast()
@@ -20,16 +20,16 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
         
         let todosRef = Database.database().reference(withPath: "Categories")
-        tableView.rowHeight = 60.0
         todosRef.keepSynced(true)
         getData()
+        tableView.separatorStyle = .none
     }
     
     func getData(){
         let db = Database.database().reference().child("Categories")
         db.observe(.childAdded) { (snapshot) in
             let data = snapshot.value as! NSDictionary
-            self.categoryArray.append(TodoCategory(name1: data["name"] as! String, id1: snapshot.key))
+            self.categoryArray.append(TodoCategory(name1: data["name"] as! String, id1: snapshot.key, color1: data["color"] as? String ?? "#FFFFFF"))
             self.tableView.reloadData()
         }
     }
@@ -43,14 +43,14 @@ class CategoryViewController: UITableViewController {
             //self.itemArray.append(textField.text!)
             //self.tableView.reloadData()
             let db = Database.database().reference().child("Categories")
-            let todo = ["name": textField.text!] as [String : Any]
+            let todo = ["name": textField.text!, "color": UIColor.randomFlat.hexValue()] as [String : Any]
             db.childByAutoId().setValue(todo){
                 (error, reference) in
                 if error != nil {
                     print(error!)
                 } else {
                     print("Category Saved")
-                    //self.showToast(message: "Category Created")
+                    self.toast.show(view: self.view, message: "Category Created")
                 }
             }
             
@@ -71,9 +71,11 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! SwipeTableViewCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categoryArray[indexPath.row].name
-        cell.delegate = self
+        cell.backgroundColor = UIColor.init(hexString: categoryArray[indexPath.row].color)
+        cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+        
         return cell
     }
     
@@ -91,20 +93,21 @@ class CategoryViewController: UITableViewController {
             
         }
     }
-}
-
-extension CategoryViewController: SwipeTableViewCellDelegate {
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-            // handle action by updating model with deletion
-            print("DELETED")
+    
+    override func updateModel(at indexPath: IndexPath) {
+        let db = Database.database().reference().child("Categories")
+        if let categoryForDeletion = self.categoryArray[indexPath.row].id as String? {
+            db.child(categoryForDeletion).removeValue(){
+                (error, ref) in
+                if error != nil {
+                    print("Something went wring deleting category: \(error!)")
+                }
+                
+            }
+            
+            self.categoryArray.remove(at: indexPath.row)
         }
-        
-        // customize the action appearance
-        deleteAction.image = UIImage(named: "delete-icon")
-        
-        return [deleteAction]
     }
     
 }
+
