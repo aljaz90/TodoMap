@@ -23,7 +23,6 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
             db = Database.database().reference().child("Categories").child(category?.id ?? "NIL").child("Todos")
             getTodos()
             navigation.title = category?.name
-            navigationController?.navigationBar.barTintColor = UIColor(hexString: category?.color ?? "#4682b4")
         }
     }
     
@@ -44,10 +43,26 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
                 self.toast.show(view: self.view, message: "Disconnected!", backgroundColor: UIColor.red)
             }
         })
-        
-        
-        //getTodos()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let colorHex = category?.color {
+            guard let navBar = navigationController?.navigationBar else {fatalError("Navigation controller does not exist")}
+            if let barTintColor = UIColor(hexString: colorHex) {
+                navBar.barTintColor = UIColor(hexString: colorHex)
+                let tintColor = ContrastColorOf(barTintColor, returnFlat: true)
+                navBar.tintColor = tintColor
+                if #available(iOS 11.0, *) {
+                    navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : tintColor]
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+            
+            
+        }
+    }
+    
     // MARK: - Default Table View Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemArray.count
@@ -60,9 +75,10 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         cell.textLabel?.text = itemArray[indexPath.row].text
         cell.accessoryType = (itemArray[indexPath.row].done) ? .checkmark : .none
         let backgrgoundColor = UIColor.init(hexString: category?.color ?? "#000000")?.lighten(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count))
+        let tintColor = ContrastColorOf(backgrgoundColor!, returnFlat: true)
         cell.backgroundColor = backgrgoundColor
-
-        cell.textLabel?.textColor = ContrastColorOf(backgrgoundColor!, returnFlat: true)
+        cell.textLabel?.textColor = tintColor
+        cell.tintColor = tintColor
         return cell
     }
     
