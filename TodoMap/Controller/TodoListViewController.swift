@@ -15,6 +15,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     let toast = Toast()
     var db : DatabaseReference = Database.database().reference()
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var navigation: UINavigationItem!
     var itemArray : [Todo] = []
@@ -71,14 +72,42 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // MARK: - Initializing cell in Table View
+        
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.textLabel?.text = itemArray[indexPath.row].text
-        cell.accessoryType = (itemArray[indexPath.row].done) ? .checkmark : .none
-        let backgrgoundColor = UIColor.init(hexString: category?.color ?? "#000000")?.lighten(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count))
-        let tintColor = ContrastColorOf(backgrgoundColor!, returnFlat: true)
-        cell.backgroundColor = backgrgoundColor
-        cell.textLabel?.textColor = tintColor
-        cell.tintColor = tintColor
+        let data = itemArray[indexPath.row]
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: data.text)
+        var accessory : UITableViewCell.AccessoryType = .none
+        let categoryBackgroundColor = UIColor(hexString: category?.color ?? "#000000")
+        var backgroundColor = UIColor.white
+        
+        if ContrastColorOf(categoryBackgroundColor ?? UIColor(hexString: "#ffffff")!, returnFlat: true) == UIColor.flatWhite {
+            backgroundColor = (categoryBackgroundColor?.lighten(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count)))!
+        } else {
+            backgroundColor = (categoryBackgroundColor?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count)))!
+        }
+        let tintColor = ContrastColorOf(backgroundColor, returnFlat: true)
+        
+        // MARK: - Checking if Todo is Completed
+        
+        if data.done {
+            accessory = .checkmark
+            backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        }
+        cell.textLabel?.attributedText = attributeString
+        
+        // MARK: - Animating
+        
+        UIView.animate(withDuration: 0.4) {
+            cell.backgroundColor = backgroundColor
+            cell.textLabel?.textColor = tintColor
+            cell.tintColor = tintColor
+            cell.accessoryType = accessory
+        }
+        
+        
         return cell
     }
     

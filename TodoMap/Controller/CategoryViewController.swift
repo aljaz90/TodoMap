@@ -29,7 +29,7 @@ class CategoryViewController: SwipeTableViewController {
         let db = Database.database().reference().child("Categories")
         db.observe(.childAdded) { (snapshot) in
             let data = snapshot.value as! NSDictionary
-            self.categoryArray.append(TodoCategory(name1: data["name"] as! String, id1: snapshot.key, color1: data["color"] as? String ?? "#FFFFFF"))
+            self.categoryArray.append(TodoCategory(name1: data["name"] as? String ?? "Null", id1: snapshot.key, color1: data["color"] as? String ?? "#FFFFFF"))
             self.tableView.reloadData()
         }
     }
@@ -72,9 +72,14 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        let backgroundColor = UIColor(hexString: categoryArray[indexPath.row].color)
+        let tintColor = ContrastColorOf(backgroundColor ?? UIColor.black, returnFlat: true)
         cell.textLabel?.text = categoryArray[indexPath.row].name
-        cell.backgroundColor = UIColor.init(hexString: categoryArray[indexPath.row].color)
+        cell.backgroundColor = backgroundColor
         cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
+        cell.textLabel?.font = cell.textLabel!.font.withSize(23)
+        cell.tintColor = tintColor
+        cell.accessoryView?.tintColor = tintColor
         
         return cell
     }
