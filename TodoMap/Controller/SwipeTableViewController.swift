@@ -11,6 +11,7 @@ import SwipeCellKit
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
 
+    //MARK: - Making TableView cells swipable for deletion
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,9 +20,9 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
-            cell.delegate = self
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        return cell
     }
     
     
@@ -43,9 +44,9 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         options.transitionStyle = .border
         return options
     }
-    
+    // MARK: - Category and Todo Controllers override this method
     func updateModel(at indexPath: IndexPath) {
-        print("Item deleted")
+        
     }
 
 }

@@ -19,11 +19,14 @@ class CategoryViewController: SwipeTableViewController {
         
         super.viewDidLoad()
         
+        // Setting up Firebase DB offline
         let todosRef = Database.database().reference(withPath: "Categories")
         todosRef.keepSynced(true)
         getData()
         tableView.separatorStyle = .none
     }
+    
+    // MARK: - Getting data from DB
     
     func getData(){
         let db = Database.database().reference().child("Categories")
@@ -33,15 +36,14 @@ class CategoryViewController: SwipeTableViewController {
             self.tableView.reloadData()
         }
     }
-/*
-     Create Todo - Show alert and push to DB
-*/
+
+    // MARK: - Create Todo - Show alert and push to DB
+
     @IBAction func addCategory(_ sender: Any) {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add a Category", message: "Enter a Name", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
-            //self.itemArray.append(textField.text!)
-            //self.tableView.reloadData()
+            
             let db = Database.database().reference().child("Categories")
             let todo = ["name": textField.text!, "color": UIColor.randomFlat.hexValue()] as [String : Any]
             db.childByAutoId().setValue(todo){
@@ -63,7 +65,7 @@ class CategoryViewController: SwipeTableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-    
+    // MARK: - UITableview Init methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryArray.count
     }
@@ -88,6 +90,8 @@ class CategoryViewController: SwipeTableViewController {
         performSegue(withIdentifier: "goToTodos", sender: self)
     }
     
+    //MARK: - Preparing for seque to todosView
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToTodos" {
             let todoVC = segue.destination as! TodoListViewController
@@ -98,6 +102,8 @@ class CategoryViewController: SwipeTableViewController {
             
         }
     }
+    
+    // MARK: - Updating model after deletion from DB
     
     override func updateModel(at indexPath: IndexPath) {
         let db = Database.database().reference().child("Categories")
@@ -113,6 +119,5 @@ class CategoryViewController: SwipeTableViewController {
             self.categoryArray.remove(at: indexPath.row)
         }
     }
-    
 }
 

@@ -14,6 +14,7 @@ import ChameleonFramework
 class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     let toast = Toast()
+    var search = true
     var db : DatabaseReference = Database.database().reference()
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -148,73 +149,57 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     @IBAction func addNewItem(_ sender: Any) {
         
-        var textField = UITextField()
-        let alert = UIAlertController(title: "Add a Todo", message: "Enter a Todo", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add Todo", style: .default) { (action) in
-            
-            
-            let todo = ["text": textField.text!, "done": false] as [String : Any]
-            self.db.childByAutoId().setValue(todo){
-                (error, reference) in
-                if error != nil {
-                    print(error!)
-                } else {
-                    self.toast.show(view: self.view, message: "Todo Created")
-                }
-            }
-            
+        search = false
+        searchBar.placeholder = "Add a new Todo"
+        searchBar.barTintColor = UIColor.red
+//        var textField = UITextField()
+//        let alert = UIAlertController(title: "Add a Todo", message: "Enter a Todo", preferredStyle: .alert)
+//        let action = UIAlertAction(title: "Add Todo", style: .default) { (action) in
+//
+//
+//            let todo = ["text": textField.text!, "done": false] as [String : Any]
+//            self.db.childByAutoId().setValue(todo){
+//                (error, reference) in
+//                if error != nil {
+//                    print(error!)
+//                } else {
+//                    self.toast.show(view: self.view, message: "Todo Created")
+//                }
+//            }
+//
+//        }
+//        alert.addTextField { (alertTxt) in
+//            alertTxt.placeholder = "Enter Todo"
+//            textField = alertTxt
+//        }
+//
+//        alert.addAction(action)
+//        present(alert, animated: true, completion: nil)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !search {
+            print(searchBar.text!)
+            search = true
         }
-        alert.addTextField { (alertTxt) in
-            alertTxt.placeholder = "Enter Todo"
-            textField = alertTxt
-        }
-        
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        let strSearch = searchText.lowercased()
-        if strSearch.isEmpty {
-            itemArray = []
-            getTodos()
-            return;
-        }
-        
-        let newArray = itemArray.filter { $0.text.lowercased().contains(strSearch) }
-        itemArray = newArray
-        tableView.reloadData()
-    }
-    /* Search Bar Animation and Search */
-    /*
-    @IBAction func searchButtonPressed(_ sender: Any) {
-        self.navigationItem.titleView = searchBar
-        
-        UIView.animate(withDuration: 0.3) {
-            self.searchBar.alpha = 1
-        }
-    }
-    
-    //MARK: UISearchBarDelegate
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.navigationItem.title = "Hello"
-        UIView.animate(withDuration: 0.2) {
-            self.searchBar.alpha = 0
+        if search {
+            let strSearch = searchText.lowercased()
+            if strSearch.isEmpty {
+                itemArray = []
+                getTodos()
+                return;
+            }
+            
+            let newArray = itemArray.filter { $0.text.lowercased().contains(strSearch) }
+            itemArray = newArray
+            tableView.reloadData()
         }
         
     }
-    
-    func createSearchBar(){
-        
-        searchBar.alpha = 0
-        searchBar.showsCancelButton = true
-        searchBar.placeholder = "Search for Todos"
-        searchBar.delegate = self
-        
-        
-    }
-    */
+    // TODO: Connect searchbar and create todo
     
     // MARK: - Deleting Todo
     override func updateModel(at indexPath: IndexPath) {
