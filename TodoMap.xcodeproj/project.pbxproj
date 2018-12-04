@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		44062A5B21A880890042F9CD /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44062A5A21A880890042F9CD /* SwipeTableViewController.swift */; };
-		44216BDC21955BC9001779DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44216BDB21955BC9001779DA /* GoogleService-Info.plist */; };
 		44355B062197491300CD6160 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44355B052197491300CD6160 /* Todo.swift */; };
 		4453C4FD21A0B338004C7096 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453C4FC21A0B338004C7096 /* CategoryViewController.swift */; };
 		4453C4FF21A180CE004C7096 /* TodoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453C4FE21A180CE004C7096 /* TodoCategory.swift */; };
+		44561B0B21AECB2900DCD443 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44561B0A21AECB2900DCD443 /* GoogleService-Info.plist */; };
+		44B7EC6D21AD77D1001E78FE /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7EC6C21AD77D1001E78FE /* LaunchViewController.swift */; };
+		44D0C10721AD7BD80096A972 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D0C10621AD7BD80096A972 /* SignUpViewController.swift */; };
+		44D0C10921AD7BF50096A972 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D0C10821AD7BF50096A972 /* LogInViewController.swift */; };
 		44EC3FE221937DA300365F89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EC3FE121937DA300365F89 /* AppDelegate.swift */; };
 		44EC3FE421937DA300365F89 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EC3FE321937DA300365F89 /* TodoListViewController.swift */; };
 		44EC3FE721937DA300365F89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44EC3FE521937DA300365F89 /* Main.storyboard */; };
@@ -24,10 +27,13 @@
 /* Begin PBXFileReference section */
 		392E3A46E9B7B2502DED6D28 /* Pods_TodoMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44062A5A21A880890042F9CD /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
-		44216BDB21955BC9001779DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44355B052197491300CD6160 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		4453C4FC21A0B338004C7096 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		4453C4FE21A180CE004C7096 /* TodoCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCategory.swift; sourceTree = "<group>"; };
+		44561B0A21AECB2900DCD443 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "View/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		44B7EC6C21AD77D1001E78FE /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		44D0C10621AD7BD80096A972 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		44D0C10821AD7BF50096A972 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		44EC3FDE21937DA300365F89 /* TodoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44EC3FE121937DA300365F89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44EC3FE321937DA300365F89 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +93,9 @@
 				4453C4FC21A0B338004C7096 /* CategoryViewController.swift */,
 				44EC3FE321937DA300365F89 /* TodoListViewController.swift */,
 				44062A5A21A880890042F9CD /* SwipeTableViewController.swift */,
+				44B7EC6C21AD77D1001E78FE /* LaunchViewController.swift */,
+				44D0C10621AD7BD80096A972 /* SignUpViewController.swift */,
+				44D0C10821AD7BF50096A972 /* LogInViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -116,7 +125,7 @@
 				44355B03219746F500CD6160 /* Model */,
 				44355B02219746BB00CD6160 /* View */,
 				44EC3FED21937DA400365F89 /* Info.plist */,
-				44216BDB21955BC9001779DA /* GoogleService-Info.plist */,
+				44561B0A21AECB2900DCD443 /* GoogleService-Info.plist */,
 			);
 			path = TodoMap;
 			sourceTree = "<group>";
@@ -142,6 +151,7 @@
 				44EC3FDB21937DA300365F89 /* Frameworks */,
 				44EC3FDC21937DA300365F89 /* Resources */,
 				1BDD13BCFF6ADB9DF298D8B6 /* [CP] Embed Pods Frameworks */,
+				8C7E11D0BCE1838F770249B6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,7 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44EC3FEC21937DA400365F89 /* LaunchScreen.storyboard in Resources */,
-				44216BDC21955BC9001779DA /* GoogleService-Info.plist in Resources */,
+				44561B0B21AECB2900DCD443 /* GoogleService-Info.plist in Resources */,
 				44EC3FE921937DA400365F89 /* Assets.xcassets in Resources */,
 				44EC3FE721937DA300365F89 /* Main.storyboard in Resources */,
 			);
@@ -209,11 +219,30 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TodoMap/Pods-TodoMap-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Bond/Bond.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -221,17 +250,72 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bond.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodoMap/Pods-TodoMap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C7E11D0BCE1838F770249B6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TodoMap/Pods-TodoMap-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAnonymousAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodoMap/Pods-TodoMap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C361989616F30E712D957BC1 /* [CP] Check Pods Manifest.lock */ = {
@@ -269,7 +353,10 @@
 				44062A5B21A880890042F9CD /* SwipeTableViewController.swift in Sources */,
 				44EC3FE421937DA300365F89 /* TodoListViewController.swift in Sources */,
 				44355B062197491300CD6160 /* Todo.swift in Sources */,
+				44D0C10721AD7BD80096A972 /* SignUpViewController.swift in Sources */,
 				44EC3FE221937DA300365F89 /* AppDelegate.swift in Sources */,
+				44D0C10921AD7BF50096A972 /* LogInViewController.swift in Sources */,
+				44B7EC6D21AD77D1001E78FE /* LaunchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

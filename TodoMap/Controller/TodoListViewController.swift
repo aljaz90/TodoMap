@@ -61,7 +61,6 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
                 }
             }
             
-            
         }
     }
     
@@ -127,6 +126,9 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     func getTodos() {
         
         SVProgressHUD.show()
+        
+        // MARK: - Checking if DB is empty
+        
         db.observe(.value) { (snapshot) in
             if !snapshot.hasChildren(){
                 SVProgressHUD.dismiss()
@@ -151,7 +153,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         
         search = false
         searchBar.placeholder = "Add a new Todo"
-        searchBar.barTintColor = UIColor.red
+        searchBar.tintColor = UIColor(hexString: category?.color ?? "#ffffff")
 //        var textField = UITextField()
 //        let alert = UIAlertController(title: "Add a Todo", message: "Enter a Todo", preferredStyle: .alert)
 //        let action = UIAlertAction(title: "Add Todo", style: .default) { (action) in

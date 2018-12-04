@@ -6,9 +6,92 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Sign Up View Controller-->
+        <scene sceneID="b3o-KO-hvz">
+            <objects>
+                <viewController id="P5l-1L-Ray" customClass="SignUpViewController" customModule="TodoMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IsU-uP-O1P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEg-B5-8Ue">
+                                <rect key="frame" x="0.0" y="177" width="375" height="292"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zO-Tu-lKF">
+                                        <rect key="frame" x="285" y="230" width="48" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancel:" destination="P5l-1L-Ray" eventType="touchUpInside" id="dAC-aG-iqN"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="WR0-Mg-XDc">
+                                        <rect key="frame" x="23" y="54" width="326" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" label="Email"/>
+                                        <color key="textColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <textInputTraits key="textInputTraits" textContentType="email"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                <color key="value" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="qzE-hn-crP">
+                                        <rect key="frame" x="23" y="142" width="326" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <accessibility key="accessibilityConfiguration" label="Password"/>
+                                        <color key="textColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                <color key="value" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6I3-TV-vYk">
+                                        <rect key="frame" x="23" y="230" width="42" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Log In"/>
+                                        <connections>
+                                            <action selector="createUser" destination="P5l-1L-Ray" eventType="touchUpInside" id="hQO-En-ZTw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="uEg-B5-8Ue" firstAttribute="top" secondItem="s5Q-4j-vPI" secondAttribute="top" constant="157" id="5a7-tm-VWg"/>
+                            <constraint firstItem="uEg-B5-8Ue" firstAttribute="trailing" secondItem="s5Q-4j-vPI" secondAttribute="trailing" id="9mL-p3-yFr"/>
+                            <constraint firstItem="uEg-B5-8Ue" firstAttribute="centerX" secondItem="IsU-uP-O1P" secondAttribute="centerX" id="I2O-iS-6VT"/>
+                            <constraint firstItem="s5Q-4j-vPI" firstAttribute="bottom" secondItem="uEg-B5-8Ue" secondAttribute="bottom" constant="198" id="NfG-gn-L1e"/>
+                            <constraint firstItem="uEg-B5-8Ue" firstAttribute="leading" secondItem="s5Q-4j-vPI" secondAttribute="leading" id="Rf0-vs-mq3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="s5Q-4j-vPI"/>
+                    </view>
+                    <connections>
+                        <outlet property="emailField" destination="WR0-Mg-XDc" id="xUW-HK-Zru"/>
+                        <outlet property="passwordField" destination="qzE-hn-crP" id="IwH-91-dZo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CKp-Qj-K5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1704.8" y="-555.47226386806597"/>
+        </scene>
         <!--TodoMap-->
         <scene sceneID="7Bh-qX-D1n">
             <objects>
@@ -33,6 +116,15 @@
                             <outlet property="delegate" destination="tqh-7b-iGl" id="0CB-4K-pQa"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Item" image="account" id="OYW-ZU-INY">
+                            <connections>
+                                <segue destination="P5l-1L-Ray" kind="popoverPresentation" popoverAnchorBarButtonItem="OYW-ZU-INY" id="lbq-BD-9DZ">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="TodoMap" id="wOt-LH-BrT">
                         <barButtonItem key="backBarButtonItem" title=" " id="xnz-bC-ojk"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="29O-yV-VnH">
@@ -41,6 +133,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="pQa-fp-sAk" kind="show" identifier="goToTodos" id="9bC-0X-Au1"/>
                     </connections>
@@ -48,6 +141,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ1-6z-EKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1704.8" y="132.68365817091455"/>
+        </scene>
+        <!--Log In View Controller-->
+        <scene sceneID="RwG-wy-dIr">
+            <objects>
+                <viewController id="PEh-G3-oqS" customClass="LogInViewController" customModule="TodoMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qgo-Vt-ZSW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="snG-hY-k0A"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VhI-Ue-ECS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1705" y="829"/>
         </scene>
         <!--TodoMap-->
         <scene sceneID="4qu-ey-W8l">
@@ -86,6 +194,9 @@
                             <outlet property="delegate" destination="pQa-fp-sAk" id="uAJ-Xd-zAd"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Item" image="account" id="UX8-NT-UTY"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="TodoMap" id="Uqd-bb-vC8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Ox-jK-T2G">
                             <connections>
@@ -93,6 +204,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="navigation" destination="Uqd-bb-vC8" id="Bmf-7m-WnP"/>
                         <outlet property="searchBar" destination="d9J-8h-3gV" id="87H-iW-OeJ"/>
@@ -130,4 +242,7 @@
             <point key="canvasLocation" x="847.20000000000005" y="132.68365817091455"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="account" width="19.5" height="19.5"/>
+    </resources>
 </document>

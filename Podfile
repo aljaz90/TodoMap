@@ -12,4 +12,8 @@ target 'TodoMap' do
   pod 'Toast-Swift', '~> 4.0.0'
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'SwipeCellKit'
+  pod 'Firebase/Auth'
+  pod 'FirebaseUI'
+  pod 'ReactiveKit'
+  pod 'Bond'
 end
