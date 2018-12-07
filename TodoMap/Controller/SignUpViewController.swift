@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveKit
 import FirebaseAuth
 
 class SignUpViewController: UIViewController {
@@ -38,15 +37,34 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createUser(){
         
-        let email = emailField.text
-        let password = passwordField.text
+        let email = emailField.text!
+        let password = passwordField.text!
         
-        print(email ?? "nil")
-        print(password ?? "nil")
-//        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-//            // ...
-//            guard let user = authResult?.user else { return }
-//        }
+        if (!(email.isEmpty) && !(password.isEmpty)) {
+            Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+                if error != nil {
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        
+                        switch errCode {
+                        case .invalidEmail:
+                            print("invalid email")
+                        case .emailAlreadyInUse:
+                            print("in use")
+                        case .weakPassword:
+                            print("password must have at least 6 characters")
+                        default:
+                            print("Create User Error: \(error!)")
+                        }
+                    }
+                }
+                guard let user = authResult?.user else { return }
+                print("user created")
+                user.sendEmailVerification(completion: nil)
+                print("email sent")
+                self.dismiss(animated: true, completion: nil)
+            }
+
+        }
     }
     
     enum LINE_POSITION {
