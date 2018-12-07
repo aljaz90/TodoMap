@@ -13,7 +13,7 @@ class Toast {
 	
     func show(view: UIView,message: String, backgroundColor: UIColor = UIColor.black, color: UIColor = UIColor.white, time: Double = 4.0){
         
-		let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 75, y: view.frame.size.height-125, width: 150, height: 35))
+		let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 100, y: view.frame.size.height-125, width: 200, height: 45))
         toastLabel.backgroundColor = backgroundColor.withAlphaComponent(0.6)
         toastLabel.textColor = color
         toastLabel.textAlignment = .center;

@@ -48,12 +48,16 @@ class SignUpViewController: UIViewController {
                         switch errCode {
                         case .invalidEmail:
                             print("invalid email")
+                            Toast().show(view: self.view, message: "Invalid Email", backgroundColor: UIColor.red)
                         case .emailAlreadyInUse:
                             print("in use")
+                            Toast().show(view: self.view, message: "Email in Use", backgroundColor: UIColor.red)
                         case .weakPassword:
                             print("password must have at least 6 characters")
+                            Toast().show(view: self.view, message: "Password is too Short", backgroundColor: UIColor.red)
                         default:
                             print("Create User Error: \(error!)")
+                            Toast().show(view: self.view, message: "Error \(error!)", backgroundColor: UIColor.red)
                         }
                     }
                 }

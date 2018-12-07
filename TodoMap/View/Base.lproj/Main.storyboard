@@ -228,7 +228,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search" id="d9J-8h-3gV">
-                            <rect key="frame" x="0.0" y="0.0" width="430" height="56"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -413,7 +413,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Sign Up"/>
+                                        <state key="normal" title="Log In"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -421,7 +421,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="createUser" destination="49q-3C-MHz" eventType="touchUpInside" id="LGT-2n-AGm"/>
+                                            <action selector="logIn:" destination="49q-3C-MHz" eventType="touchUpInside" id="oYc-H3-uWR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.40000000596046448" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xRM-Qq-0G9">
@@ -439,7 +439,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="cancel:" destination="49q-3C-MHz" eventType="touchUpInside" id="SD2-Ue-dIj"/>
+                                            <action selector="cancel:" destination="49q-3C-MHz" eventType="touchUpInside" id="eHT-tC-Op0"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -470,8 +470,8 @@
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="rer-lQ-b8A"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="emailField" destination="ZOB-ij-dle" id="SjP-jP-75c"/>
-                        <outlet property="passwordField" destination="pBZ-fy-OcU" id="Fkb-Zb-t29"/>
+                        <outlet property="emailField" destination="ZOB-ij-dle" id="K81-ht-vBP"/>
+                        <outlet property="passwordField" destination="pBZ-fy-OcU" id="WIe-5A-iEO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ejr-t6-cVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
