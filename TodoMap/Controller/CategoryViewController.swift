@@ -119,5 +119,6 @@ class CategoryViewController: SwipeTableViewController {
             self.categoryArray.remove(at: indexPath.row)
         }
     }
+    
 }
 

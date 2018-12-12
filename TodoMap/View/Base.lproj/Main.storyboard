@@ -10,6 +10,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="fHy-NC-kr7">
+            <objects>
+                <viewController id="hb3-qM-Mio" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Imu-eb-GKu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="aA3-Pr-gAJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ngz-UW-mR6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ft-ba-4bT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3111" y="-809"/>
+        </scene>
         <!--Sign Up-->
         <scene sceneID="b3o-KO-hvz">
             <objects>
@@ -166,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CKp-Qj-K5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2606" y="-555"/>
+            <point key="canvasLocation" x="4144.8000000000002" y="-627.4362818590705"/>
         </scene>
         <!--TodoMap-->
         <scene sceneID="7Bh-qX-D1n">
@@ -195,9 +211,7 @@
                     <toolbarItems>
                         <barButtonItem title="Item" image="account" id="OYW-ZU-INY">
                             <connections>
-                                <segue destination="jq8-qa-Rva" kind="popoverPresentation" popoverAnchorBarButtonItem="OYW-ZU-INY" id="lbq-BD-9DZ">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <segue destination="hAY-eH-hPq" kind="show" id="365-DU-0jd"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -216,7 +230,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ1-6z-EKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1704.8" y="132.68365817091455"/>
+            <point key="canvasLocation" x="1705" y="133"/>
         </scene>
         <!--TodoMap-->
         <scene sceneID="4qu-ey-W8l">
@@ -256,7 +270,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Item" image="account" id="UX8-NT-UTY"/>
+                        <barButtonItem title="Item" image="account" id="UX8-NT-UTY">
+                            <connections>
+                                <segue destination="hAY-eH-hPq" kind="show" id="Pas-wJ-gvW"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="TodoMap" id="Uqd-bb-vC8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Ox-jK-T2G">
@@ -302,28 +320,10 @@
             </objects>
             <point key="canvasLocation" x="847.20000000000005" y="132.68365817091455"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Iig-IW-gM0">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jq8-qa-Rva" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="25B-y5-PRd">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="P5l-1L-Ray" kind="relationship" relationship="rootViewController" id="L4d-Bv-eZD"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rj9-B9-P57" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1860" y="-555"/>
-        </scene>
-        <!--Sign Up-->
+        <!--Log In-->
         <scene sceneID="hGY-wH-JY3">
             <objects>
-                <viewController id="49q-3C-MHz" customClass="LogInViewController" customModule="TodoMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Log In" id="49q-3C-MHz" customClass="LogInViewController" customModule="TodoMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EkC-aK-cXK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -476,10 +476,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ejr-t6-cVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2606" y="933"/>
+            <point key="canvasLocation" x="4144.8000000000002" y="-1419.04047976012"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ck4-Ic-jA0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hAY-eH-hPq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hyU-wt-0Rd">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hb3-qM-Mio" kind="relationship" relationship="rootViewController" id="0E7-QM-3MV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dE8-pI-4qW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2172" y="-809"/>
         </scene>
     </scenes>
     <resources>
         <image name="account" width="19.5" height="19.5"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pas-wJ-gvW"/>
+    </inferredMetricsTieBreakers>
 </document>
