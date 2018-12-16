@@ -16,5 +16,4 @@ target 'TodoMap' do
   pod 'FirebaseUI'
   pod 'ReactiveKit'
   pod 'Bond'
-  pod 'Dropper'
 end

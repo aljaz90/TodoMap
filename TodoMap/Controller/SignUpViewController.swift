@@ -8,15 +8,23 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
 
+    @IBOutlet weak var firstNameField: UITextField!
+    @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    
+    let db = Database.database().reference().child("Users")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        addLineToView(view: lastNameField, position: .LINE_POSITION_BOTTOM, color: UIColor.white, width: 1.0)
+        addLineToView(view: firstNameField, position: .LINE_POSITION_BOTTOM, color: UIColor.white, width: 1.0)
         addLineToView(view: emailField, position: .LINE_POSITION_BOTTOM, color: UIColor.white, width: 2.0)
         addLineToView(view: passwordField, position: .LINE_POSITION_BOTTOM, color: UIColor.white, width: 2.0)
         let gradient: CAGradientLayer = CAGradientLayer()
@@ -37,10 +45,12 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createUser(){
         
-        let email = emailField.text!
-        let password = passwordField.text!
+        let email = emailField.text ?? ""
+        let password = passwordField.text ?? ""
+        let first_name = firstNameField.text ?? ""
+        let last_name = lastNameField.text ?? ""
         
-        if (!(email.isEmpty) && !(password.isEmpty)) {
+        if (!(email.isEmpty) && !(password.isEmpty) && !(first_name.isEmpty) && !(last_name.isEmpty)) {
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 if error != nil {
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
@@ -62,12 +72,21 @@ class SignUpViewController: UIViewController {
                     }
                 }
                 guard let user = authResult?.user else { return }
-                print("user created")
+                print("STUFF: Doing something?")
+                let data = ["email": user.email, "uid": user.uid, "firstName": first_name, "lastName": last_name]
+                self.db.child(user.uid).setValue(data)
                 user.sendEmailVerification(completion: nil)
-                print("email sent")
+                
                 self.dismiss(animated: true, completion: nil)
             }
 
+        }
+        else {
+            print(email)
+            print(password)
+            print(first_name)
+            print(last_name)
+            Toast().show(view: self.view, message: "Fill out All Fields")
         }
     }
     

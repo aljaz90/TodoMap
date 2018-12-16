@@ -18,11 +18,19 @@ class CategoryViewController: SwipeTableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        // Setting up Firebase DB offline
-        let todosRef = Database.database().reference(withPath: "Categories")
-        todosRef.keepSynced(true)
-        getData()
+        print("Got to here!!!")
+        if Auth.auth().currentUser != nil {
+            // Setting up Firebase DB offline
+            let todosRef = Database.database().reference(withPath: "Users/\(Auth.auth().currentUser?.uid ?? "")")
+            todosRef.keepSynced(true)
+            getData()
+            print(Auth.auth().currentUser?.email!)
+            print("User Logged In")
+        } else {
+            print("No user")
+            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.yellow, time: 30.0)
+        }
+
         tableView.separatorStyle = .none
     }
     

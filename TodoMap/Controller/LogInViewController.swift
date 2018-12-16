@@ -31,7 +31,6 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func logIn(_ sender: Any) {
-        
         if (!(emailField.text!.isEmpty) && !(passwordField.text!.isEmpty)) {
             Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!) { (result, error) in
                 if error != nil {
@@ -53,7 +52,7 @@ class LogInViewController: UIViewController {
                         }
                     }
                 }
-                print("else")
+                self.dismiss(animated: true, completion: nil)
             }
         }
         
