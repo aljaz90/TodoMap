@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
@@ -36,6 +36,35 @@ class SignUpViewController: UIViewController {
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
 
         self.view.layer.insertSublayer(gradient, at: 0)
+        
+        firstNameField.delegate = self
+        lastNameField.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        switch textField {
+            case firstNameField:
+                lastNameField.becomeFirstResponder()
+                break
+            case lastNameField:
+                emailField.becomeFirstResponder()
+                break
+            case emailField:
+                passwordField.becomeFirstResponder()
+                break
+            case passwordField:
+                createUser()
+                break
+        default:
+            print("")
+        }
+        return true
     }
     
     
@@ -59,12 +88,20 @@ class SignUpViewController: UIViewController {
                         case .invalidEmail:
                             print("invalid email")
                             Toast().show(view: self.view, message: "Invalid Email", backgroundColor: UIColor.red)
+                            break
                         case .emailAlreadyInUse:
                             print("in use")
                             Toast().show(view: self.view, message: "Email in Use", backgroundColor: UIColor.red)
+                            break
                         case .weakPassword:
                             print("password must have at least 6 characters")
                             Toast().show(view: self.view, message: "Password is too Short", backgroundColor: UIColor.red)
+                            break
+                        case .networkError:
+                            print("Not Connected")
+                            Toast().show(view: self.view, message: "Not Connected", backgroundColor: UIColor.red)
+                            break
+                            
                         default:
                             print("Create User Error: \(error!)")
                             Toast().show(view: self.view, message: "Error \(error!)", backgroundColor: UIColor.red)
@@ -82,10 +119,6 @@ class SignUpViewController: UIViewController {
 
         }
         else {
-            print(email)
-            print(password)
-            print(first_name)
-            print(last_name)
             Toast().show(view: self.view, message: "Fill out All Fields")
         }
     }

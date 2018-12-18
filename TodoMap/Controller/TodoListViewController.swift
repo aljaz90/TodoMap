@@ -13,7 +13,6 @@ import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
-    let toast = Toast()
     var search = true
     var db : DatabaseReference = Database.database().reference()
     @IBOutlet weak var searchBar: UISearchBar!
@@ -22,7 +21,10 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     var itemArray : [Todo] = []
     var category : TodoCategory? {
         didSet{
-            db = Database.database().reference().child("Categories").child(category?.id ?? "NIL").child("Todos")
+            if (Auth.auth().currentUser == nil){
+                return
+            }
+            db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories").child(category?.id ?? "NIL").child("Todos")
             getTodos()
             navigation.title = category?.name
         }
@@ -32,19 +34,24 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         
         super.viewDidLoad()
         
-        let todosRef = Database.database().reference(withPath: "Categories")
-        todosRef.keepSynced(true)
-        
         let connectedRef = Database.database().reference(withPath: ".info/connected")
         
         connectedRef.observe(.value, with: { snapshot in
             if snapshot.value as? Bool ?? false {
-                self.toast.show(view: self.view, message: "Connected!", backgroundColor: UIColor.green)
-                //self.showToast(message: "Connected!", backgroundColor: UIColor.green)
+                Toast().show(view: self.view, message: "Connected!", backgroundColor: UIColor.green)
             } else {
-                self.toast.show(view: self.view, message: "Disconnected!", backgroundColor: UIColor.red)
+                Toast().show(view: self.view, message: "Disconnected!", backgroundColor: UIColor.red)
             }
         })
+        
+        if (Auth.auth().currentUser == nil){
+            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
+            return
+        }
+        
+        let todosRef = Database.database().reference(withPath: "Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
+        todosRef.keepSynced(true)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,7 +160,10 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         
         search = false
         searchBar.placeholder = "Add a new Todo"
-        searchBar.tintColor = UIColor(hexString: category?.color ?? "#ffffff")
+        searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+        searchBar.tintColor = UIColor(hexString: "#ffffff")
+        searchBar.becomeFirstResponder()
+        searchBar.showsCancelButton = true
 //        var textField = UITextField()
 //        let alert = UIAlertController(title: "Add a Todo", message: "Enter a Todo", preferredStyle: .alert)
 //        let action = UIAlertAction(title: "Add Todo", style: .default) { (action) in
@@ -165,7 +175,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
 //                if error != nil {
 //                    print(error!)
 //                } else {
-//                    self.toast.show(view: self.view, message: "Todo Created")
+//                    Toast().show(view: self.view, message: "Todo Created")
 //                }
 //            }
 //
@@ -179,10 +189,35 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
 //        present(alert, animated: true, completion: nil)
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        search = true
+        searchBar.placeholder = "Search"
+        searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+        searchBar.tintColor = UIColor(hexString: "#ffffff")
+        searchBar.showsCancelButton = false
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !search {
             print(searchBar.text!)
+            if !((searchBar.text!.isEmpty)){
+                let todo = ["text": searchBar.text!, "done": false] as [String : Any]
+                self.db.childByAutoId().setValue(todo){
+                    (error, reference) in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        Toast().show(view: self.view, message: "Todo Created")
+                        
+                    }
+                }
+            }
+            
             search = true
+            searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+            searchBar.placeholder = "Search"
+            searchBar.tintColor = UIColor(hexString: category?.color ?? "#ffffff")
+            searchBar.showsCancelButton = false
         }
     }
     

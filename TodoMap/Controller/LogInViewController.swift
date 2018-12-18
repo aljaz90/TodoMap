@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -28,7 +28,15 @@ class LogInViewController: UIViewController {
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         
         self.view.layer.insertSublayer(gradient, at: 0)
+        
+        emailField.delegate = self
+        passwordField.delegate = self
+        
+        emailField.enablesReturnKeyAutomatically = true
+        passwordField.enablesReturnKeyAutomatically = true
     }
+    
+    
     
     @IBAction func logIn(_ sender: Any) {
         if (!(emailField.text!.isEmpty) && !(passwordField.text!.isEmpty)) {
@@ -40,26 +48,50 @@ class LogInViewController: UIViewController {
                         case .userNotFound:
                             print("User not found")
                             Toast().show(view: self.view, message: "User not Found", backgroundColor: UIColor.red)
+                            break
                         case .wrongPassword:
                             print("Wrong password")
                             Toast().show(view: self.view, message: "Wrong Password", backgroundColor: UIColor.red)
+                            break
                         case .userDisabled:
                             print("User Disabled")
                             Toast().show(view: self.view, message: "User Disabled", backgroundColor: UIColor.yellow)
+                            break
+                        case .networkError:
+                            print("No Connection")
+                            Toast().show(view: self.view, message: "Not Connected", backgroundColor: UIColor.red)
+                            break
+                            
                         default:
                             print("Create User Error: \(error!)")
                             Toast().show(view: self.view, message: "Error \(error!)", backgroundColor: UIColor.red)
                         }
                     }
+                } else {
+                    self.dismiss(animated: true, completion: nil)
                 }
-                self.dismiss(animated: true, completion: nil)
+                
             }
         }
         
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        if textField == passwordField {
+            logIn(self)
+        } else {
+            passwordField.becomeFirstResponder()
+        }
+        
+        return true
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        
     }
     
 }

@@ -13,22 +13,18 @@ import ChameleonFramework
 class CategoryViewController: SwipeTableViewController {
     
     var categoryArray : [TodoCategory] = []
-    let toast = Toast()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        print("Got to here!!!")
         if Auth.auth().currentUser != nil {
             // Setting up Firebase DB offline
             let todosRef = Database.database().reference(withPath: "Users/\(Auth.auth().currentUser?.uid ?? "")")
             todosRef.keepSynced(true)
             getData()
-            print(Auth.auth().currentUser?.email!)
-            print("User Logged In")
-        } else {
-            print("No user")
-            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.yellow, time: 30.0)
+        }
+        else {
+            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
         }
 
         tableView.separatorStyle = .none
@@ -37,7 +33,7 @@ class CategoryViewController: SwipeTableViewController {
     // MARK: - Getting data from DB
     
     func getData(){
-        let db = Database.database().reference().child("Categories")
+        let db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
         db.observe(.childAdded) { (snapshot) in
             let data = snapshot.value as! NSDictionary
             self.categoryArray.append(TodoCategory(name1: data["name"] as? String ?? "Null", id1: snapshot.key, color1: data["color"] as? String ?? "#FFFFFF"))
@@ -52,21 +48,26 @@ class CategoryViewController: SwipeTableViewController {
         let alert = UIAlertController(title: "Add a Category", message: "Enter a Name", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             
-            let db = Database.database().reference().child("Categories")
+            if (Auth.auth().currentUser == nil){
+                Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange)
+                return
+            }
+            
+            let db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
             let todo = ["name": textField.text!, "color": UIColor.randomFlat.hexValue()] as [String : Any]
             db.childByAutoId().setValue(todo){
                 (error, reference) in
                 if error != nil {
                     print(error!)
+                    Toast().show(view: self.view, message: "Error Creating Category", backgroundColor: UIColor.red)
                 } else {
-                    print("Category Saved")
-                    self.toast.show(view: self.view, message: "Category Created")
+                    Toast().show(view: self.view, message: "Category Created")
                 }
             }
             
         }
         alert.addTextField { (alertTxt) in
-            alertTxt.placeholder = "Enter Todo"
+            alertTxt.placeholder = "Enter Category Name"
             textField = alertTxt
         }
         
@@ -114,7 +115,10 @@ class CategoryViewController: SwipeTableViewController {
     // MARK: - Updating model after deletion from DB
     
     override func updateModel(at indexPath: IndexPath) {
-        let db = Database.database().reference().child("Categories")
+        if Auth.auth().currentUser == nil {
+            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange)
+        }
+        let db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
         if let categoryForDeletion = self.categoryArray[indexPath.row].id as String? {
             db.child(categoryForDeletion).removeValue(){
                 (error, ref) in

@@ -28,8 +28,7 @@ class AccountViewController: UIViewController {
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        
-        self.view.layer.insertSublayer(gradient, at: 0)
+    
         // MARK: - Showing View If User is Present
 
         if Auth.auth().currentUser != nil {
@@ -37,13 +36,13 @@ class AccountViewController: UIViewController {
             noUser.isHidden = true
             
             if let user = Auth.auth().currentUser {
-                print("This is suposto be working")
-                emailLabel.text = "Example email"
+                emailLabel.text = user.email
                 firstNameLabel.text = "Amazing"
                 lastNameLabel.text = "Name"
             }
             
         } else {
+            self.view.layer.insertSublayer(gradient, at: 0)
             user.isHidden = true
             noUser.isHidden = false
         }
@@ -59,6 +58,14 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func logOut(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            dismiss(animated: true, completion: nil)
+        } catch {
+            fatalError("Could Not Sign Out")
+            Toast().show(view: self.view, message: "Cannot Sign Out", backgroundColor: UIColor.red)
+        }
+        
     }
     
     @IBAction func deleteAccount(_ sender: Any) {
