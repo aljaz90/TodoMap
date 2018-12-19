@@ -13,6 +13,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var toastView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,26 +46,22 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
                         
                         switch errCode {
-                        case .userNotFound:
-                            print("User not found")
-                            Toast().show(view: self.view, message: "User not Found", backgroundColor: UIColor.red)
-                            break
-                        case .wrongPassword:
-                            print("Wrong password")
-                            Toast().show(view: self.view, message: "Wrong Password", backgroundColor: UIColor.red)
+                        case .wrongPassword, .invalidEmail, .userNotFound:
+                            print("Invalid Email or Password")
+                            Toast().show(view: self.toastView, message: "Invalid Email or Password", backgroundColor: UIColor.red)
                             break
                         case .userDisabled:
                             print("User Disabled")
-                            Toast().show(view: self.view, message: "User Disabled", backgroundColor: UIColor.yellow)
+                            Toast().show(view: self.toastView, message: "User Disabled", backgroundColor: UIColor.yellow)
                             break
                         case .networkError:
                             print("No Connection")
-                            Toast().show(view: self.view, message: "Not Connected", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Not Connected", backgroundColor: UIColor.red)
                             break
                             
                         default:
                             print("Create User Error: \(error!)")
-                            Toast().show(view: self.view, message: "Error \(error!)", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Error \(error!)", backgroundColor: UIColor.red)
                         }
                     }
                 } else {

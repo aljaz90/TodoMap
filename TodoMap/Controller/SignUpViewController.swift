@@ -16,6 +16,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var toastView: UIView!
     
     let db = Database.database().reference().child("Users")
     
@@ -87,24 +88,24 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         switch errCode {
                         case .invalidEmail:
                             print("invalid email")
-                            Toast().show(view: self.view, message: "Invalid Email", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Invalid Email", backgroundColor: UIColor.red)
                             break
                         case .emailAlreadyInUse:
                             print("in use")
-                            Toast().show(view: self.view, message: "Email in Use", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Email in Use", backgroundColor: UIColor.red)
                             break
                         case .weakPassword:
                             print("password must have at least 6 characters")
-                            Toast().show(view: self.view, message: "Password is too Short", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Password is too Short", backgroundColor: UIColor.red)
                             break
                         case .networkError:
                             print("Not Connected")
-                            Toast().show(view: self.view, message: "Not Connected", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Not Connected", backgroundColor: UIColor.red)
                             break
                             
                         default:
                             print("Create User Error: \(error!)")
-                            Toast().show(view: self.view, message: "Error \(error!)", backgroundColor: UIColor.red)
+                            Toast().show(view: self.toastView, message: "Error \(error!)", backgroundColor: UIColor.red)
                         }
                     }
                 }
@@ -119,7 +120,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 
         }
         else {
-            Toast().show(view: self.view, message: "Fill out All Fields")
+            Toast().show(view: self.toastView, message: "Fill out All Fields")
         }
     }
     

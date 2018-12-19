@@ -16,6 +16,7 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var user: UIView!
     @IBOutlet weak var noUser: UIView!
+    @IBOutlet weak var orLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -47,8 +48,9 @@ class AccountViewController: UIViewController {
             noUser.isHidden = false
         }
         
-        
-        
+        orLabel.layer.cornerRadius = orLabel.frame.height/2
+        orLabel.layer.masksToBounds = false
+        orLabel.clipsToBounds = true
         
     }
     @IBAction func cancel(_ sender: Any) {
