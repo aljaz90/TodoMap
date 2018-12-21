@@ -196,7 +196,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="changePassword:" destination="hb3-qM-Mio" eventType="touchUpInside" id="yUx-dE-TYN"/>
+                                                    <action selector="changePassword:" destination="hb3-qM-Mio" eventType="touchUpInside" id="1ct-9K-WOl"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Crs-Mp-SGx">
@@ -261,11 +261,6 @@
                             <constraint firstItem="ymg-s2-JiE" firstAttribute="top" secondItem="aA3-Pr-gAJ" secondAttribute="top" id="nuG-r8-PP5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aA3-Pr-gAJ"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="ymg-s2-JiE"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="9W4-Qi-VyX">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="dTb-0u-Ric">
@@ -571,6 +566,8 @@
                                 <segue destination="hAY-eH-hPq" kind="show" id="Pas-wJ-gvW"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="CcM-hV-xr5"/>
+                        <barButtonItem image="settings" style="plain" id="h3a-Nr-KOS"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="TodoMap" id="Uqd-bb-vC8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Ox-jK-T2G">
@@ -607,6 +604,8 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Rah-9C-JQB">
                         <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </toolbar>
                     <connections>
                         <segue destination="tqh-7b-iGl" kind="relationship" relationship="rootViewController" id="Vfx-qF-VI5"/>
@@ -803,7 +802,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="account" width="75" height="75"/>
+        <image name="account" width="37.5" height="37.5"/>
+        <image name="settings" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="365-DU-0jd"/>

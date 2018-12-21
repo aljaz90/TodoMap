@@ -53,10 +53,18 @@ class AccountViewController: UIViewController {
         orLabel.clipsToBounds = true
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func changePassword(_ sender: Any) {
+        if let currentUser = Auth.auth().currentUser {
+            print("updated")
+        }
     }
     
     @IBAction func logOut(_ sender: Any) {

@@ -73,6 +73,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
+    }
+
+    
     @IBAction func createUser(){
         
         let email = emailField.text ?? ""

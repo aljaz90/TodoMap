@@ -10,13 +10,25 @@ import UIKit
 import Firebase
 import ChameleonFramework
 
-class CategoryViewController: SwipeTableViewController {
+class CategoryViewController: SwipeTableViewController, ModalTransitionListener {
+    
+    func popoverDismissed() {
+        if Auth.auth().currentUser != nil && categoryArray.isEmpty {
+            getData()
+        }
+        else if Auth.auth().currentUser == nil {
+            categoryArray = []
+            tableView.reloadData()
+            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
+        }
+    }
     
     var categoryArray : [TodoCategory] = []
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        ModalTransitionMediator.instance.setListener(listener: self)
         if Auth.auth().currentUser != nil {
             // Setting up Firebase DB offline
             let todosRef = Database.database().reference(withPath: "Users/\(Auth.auth().currentUser?.uid ?? "")")

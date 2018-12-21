@@ -73,6 +73,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
+    }
+
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()

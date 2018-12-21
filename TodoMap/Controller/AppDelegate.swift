@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
-        return true
+        return true 
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

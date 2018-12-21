@@ -52,6 +52,9 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         let todosRef = Database.database().reference(withPath: "Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
         todosRef.keepSynced(true)
         
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress))
+        self.view.addGestureRecognizer(longPressRecognizer)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +71,20 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
                 }
             }
             
+        }
+    }
+    
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                print("##################")
+                print("pressed \(indexPath)")
+                print(itemArray[indexPath[1]].text)
+                // your code here, get the row for the indexPath or do whatever you want
+            }
         }
     }
     
@@ -158,12 +175,25 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     @IBAction func addNewItem(_ sender: Any) {
         
-        search = false
-        searchBar.placeholder = "Add a new Todo"
-        searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
-        searchBar.tintColor = UIColor(hexString: "#ffffff")
-        searchBar.becomeFirstResponder()
-        searchBar.showsCancelButton = true
+        if search {
+            search = false
+            searchBar.placeholder = "Add a new Todo"
+            searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+            searchBar.backgroundColor = UIColor(hexString: category?.color ?? "#ffffff")
+            searchBar.tintColor = UIColor(hexString: "#ffffff")
+            searchBar.becomeFirstResponder()
+            //searchBar.showsCancelButton = true
+        } else {
+            search = true
+            searchBar.placeholder = "Search"
+            searchBar.barTintColor = UIColor(hexString: "#ffffff")
+            searchBar.backgroundColor = UIColor(hexString: "#ffffff")
+            searchBar.tintColor = UIColor.darkGray
+            searchBar.resignFirstResponder()
+            //searchBar.showsCancelButton = false
+        }
+        
+        
 //        var textField = UITextField()
 //        let alert = UIAlertController(title: "Add a Todo", message: "Enter a Todo", preferredStyle: .alert)
 //        let action = UIAlertAction(title: "Add Todo", style: .default) { (action) in
@@ -192,9 +222,10 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         search = true
         searchBar.placeholder = "Search"
-        searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+        searchBar.barTintColor = UIColor.darkGray
         searchBar.tintColor = UIColor(hexString: "#ffffff")
-        searchBar.showsCancelButton = false
+        searchBar.backgroundColor = UIColor(hexString: "#ffffff")
+        //searchBar.showsCancelButton = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -214,10 +245,11 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
             }
             
             search = true
-            searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+            searchBar.barTintColor = UIColor.darkGray
             searchBar.placeholder = "Search"
-            searchBar.tintColor = UIColor(hexString: category?.color ?? "#ffffff")
-            searchBar.showsCancelButton = false
+            searchBar.tintColor = UIColor(hexString: "#ffffff")
+            searchBar.backgroundColor = UIColor(hexString: "#ffffff")
+            //searchBar.showsCancelButton = false
         }
     }
     
