@@ -10,7 +10,8 @@ import UIKit
 import SwipeCellKit
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
-
+    
+    var cellName = "Cell"
     //MARK: - Making TableView cells swipable for deletion
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +21,13 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as! SwipeTableViewCell
         cell.delegate = self
         return cell
+    }
+    
+    func setCell(cellID:String = "Cell"){
+        cellName = cellID
     }
     
     

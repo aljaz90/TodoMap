@@ -94,6 +94,7 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        super.setCell()
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         let backgroundColor = UIColor(hexString: categoryArray[indexPath.row].color)
         let tintColor = ContrastColorOf(backgroundColor ?? UIColor.black, returnFlat: true)

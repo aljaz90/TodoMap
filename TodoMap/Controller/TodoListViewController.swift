@@ -16,6 +16,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     var search = true
     var db : DatabaseReference = Database.database().reference()
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     @IBOutlet weak var navigation: UINavigationItem!
     var itemArray : [Todo] = []
@@ -97,7 +98,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // MARK: - Initializing cell in Table View
-        
+        super.setCell()
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         let data = itemArray[indexPath.row]
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: data.text)
@@ -178,9 +179,9 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         if search {
             search = false
             searchBar.placeholder = "Add a new Todo"
-            searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
-            searchBar.backgroundColor = UIColor(hexString: category?.color ?? "#ffffff")
-            searchBar.tintColor = UIColor(hexString: "#ffffff")
+//            searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
+//            searchBar.backgroundColor = UIColor(hexString: category?.color ?? "#ffffff")
+//            searchBar.tintColor = UIColor(hexString: "#ffffff")
             searchBar.becomeFirstResponder()
             //searchBar.showsCancelButton = true
         } else {
