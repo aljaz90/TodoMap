@@ -285,5 +285,16 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
             self.itemArray.remove(at: indexPath.row)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCategorySettings" {
+            let settingsVC = segue.destination as! CategorySettingsViewController
+            
+            if category != nil {
+                settingsVC.category = category
+            }
+            
+        }
+    }
 }
 

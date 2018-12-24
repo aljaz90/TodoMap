@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CategorySettingsViewController: SwipeTableViewController {
 
@@ -14,12 +15,27 @@ class CategorySettingsViewController: SwipeTableViewController {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var viewButton: UIButton!
     @IBOutlet weak var addView: UIView!
+    var db : DatabaseReference = Database.database().reference()
+    
+    var category : TodoCategory? {
+        didSet {
+            if Auth.auth().currentUser != nil {
+                db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories").child(category?.id ?? "NIL").child("sharedUsers")
+                getShares()
+            }
+        }
+    }
     
     var mode = ""
     var shares : [Share] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if Auth.auth().currentUser == nil {
+            dismiss(animated: true, completion: nil)
+            return
+        }
         
         shares.append(Share(email1: "example@example.com", catUID: "dsaasdas", mode1: "edit"))
         
@@ -32,6 +48,12 @@ class CategorySettingsViewController: SwipeTableViewController {
         UIView.animate(withDuration: 0.5) {
             self.viewButton.backgroundColor = UIColor.gray
             self.editButton.backgroundColor = UIColor.white
+        }
+    }
+    
+    func getShares() {
+        db.observe(.childAdded) { (snapsnot) in
+            print(snapsnot.value)
         }
     }
     
@@ -58,8 +80,16 @@ class CategorySettingsViewController: SwipeTableViewController {
     
     @IBAction func addUser(_ sender: Any) {
         let email = emailField.text ?? ""
-        if !mode.isEmpty && !email.isEmpty {
+        
+        if !mode.isEmpty && isValidEmail(testStr: email) {
             
         }
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
 }
