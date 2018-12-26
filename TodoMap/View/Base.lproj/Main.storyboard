@@ -528,7 +528,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ1-6z-EKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1705" y="133"/>
+            <point key="canvasLocation" x="1704.8" y="132.68365817091455"/>
         </scene>
         <!--TodoMap-->
         <scene sceneID="4qu-ey-W8l">
@@ -574,7 +574,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="CcM-hV-xr5"/>
-                        <barButtonItem image="settings" style="plain" id="h3a-Nr-KOS">
+                        <barButtonItem title="Item" image="settings" style="plain" id="h3a-Nr-KOS">
                             <connections>
                                 <segue destination="JhY-32-Tja" kind="show" identifier="goToCategorySettings" id="XIB-Rn-abZ"/>
                             </connections>
@@ -592,6 +592,7 @@
                         <outlet property="addButton" destination="0Ox-jK-T2G" id="mWT-Kr-ZJS"/>
                         <outlet property="navigation" destination="Uqd-bb-vC8" id="Bmf-7m-WnP"/>
                         <outlet property="searchBar" destination="d9J-8h-3gV" id="87H-iW-OeJ"/>
+                        <outlet property="settingButton" destination="h3a-Nr-KOS" id="UxZ-mq-guk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l7P-qe-5VY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -915,6 +916,6 @@
         <image name="view" width="37.5" height="37.5"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pas-wJ-gvW"/>
+        <segue reference="365-DU-0jd"/>
     </inferredMetricsTieBreakers>
 </document>

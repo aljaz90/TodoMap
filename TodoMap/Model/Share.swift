@@ -11,13 +11,15 @@ import Foundation
 class Share {
     
     var email : String
-    var categoryUID : String
+    var userUID : String
     var mode : String
+    var categoryID : String
     
-    init(email1:String, catUID:String, mode1:String) {
+    init(email1:String, usrID:String, mode1:String, catID:String) {
         email = email1
-        categoryUID = catUID
+        userUID = usrID
         mode = mode1
+        categoryID = catID
     }
     
 }

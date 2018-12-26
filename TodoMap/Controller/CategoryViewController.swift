@@ -24,6 +24,7 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
     }
     
     var categoryArray : [TodoCategory] = []
+    var shares : [Share] = []
     
     override func viewDidLoad() {
         
@@ -46,11 +47,41 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
     
     func getData(){
         let db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
+        let shared_db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("sharedCategories")
+        
+        shared_db.observe(.childAdded) { (snapshot) in
+            let data = snapshot.value as! NSDictionary
+            
+            let email = data["user_email"] as? String ?? ""
+            let mode = data["mode"] as? String ?? "mode"
+            let user_id = data["user_id"] as? String ?? ""
+            let category_id = data["category_id"] as? String ?? ""
+            
+            if (!email.isEmpty && !mode.isEmpty && !user_id.isEmpty && !category_id.isEmpty) {
+                self.getSharedData(share: Share(email1: email, usrID: user_id, mode1: mode, catID: category_id))
+            }
+            
+        }
+        
         db.observe(.childAdded) { (snapshot) in
             let data = snapshot.value as! NSDictionary
             self.categoryArray.append(TodoCategory(name1: data["name"] as? String ?? "Null", id1: snapshot.key, color1: data["color"] as? String ?? "#FFFFFF"))
             self.tableView.reloadData()
         }
+    }
+    
+    func getSharedData(share:Share) {
+        let share_data_db = Database.database().reference().child("Users").child(share.userUID).child("Categories")
+        
+        share_data_db.observe(.childAdded) { (snapshot) in
+            
+            let data = snapshot.value as! NSDictionary
+            if snapshot.key == share.categoryID {
+                self.categoryArray.append(TodoCategory(name1: data["name"] as? String ?? "Null", id1: snapshot.key, color1: data["color"] as? String ?? "#FFFFFF", share1: true, mode1: share.mode, usrID: share.userUID, catID: share.categoryID))
+                self.tableView.reloadData()
+            }
+        }
+        
     }
 
     // MARK: - Create Todo - Show alert and push to DB
@@ -105,6 +136,11 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
         cell.tintColor = tintColor
         cell.accessoryView?.tintColor = tintColor
         
+        if categoryArray[indexPath.row].share {
+            print(categoryArray[indexPath.row].mode)
+            cell.imageView?.image = UIImage(named: categoryArray[indexPath.row].mode)
+        }
+        
         return cell
     }
     
@@ -130,19 +166,27 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
     override func updateModel(at indexPath: IndexPath) {
         if Auth.auth().currentUser == nil {
             Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange)
+            return
         }
-        let db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
-        if let categoryForDeletion = self.categoryArray[indexPath.row].id as String? {
-            db.child(categoryForDeletion).removeValue(){
-                (error, ref) in
-                if error != nil {
-                    print("Something went wring deleting category: \(error!)")
+        
+        if !categoryArray[indexPath.row].share {
+            
+            let db = Database.database().reference().child("Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
+            if let categoryForDeletion = self.categoryArray[indexPath.row].id as String? {
+                db.child(categoryForDeletion).removeValue(){
+                    (error, ref) in
+                    if error != nil {
+                        print("Something went wrong deleting category: \(error!)")
+                    }
+                    
                 }
                 
+                self.categoryArray.remove(at: indexPath.row)
             }
-            
-            self.categoryArray.remove(at: indexPath.row)
+        } else {
+            Toast().show(view: self.view, message: "I'm afraid I can't let you do that.", backgroundColor: UIColor.red)
         }
+        
     }
     
     

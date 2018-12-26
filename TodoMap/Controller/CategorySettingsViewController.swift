@@ -37,8 +37,6 @@ class CategorySettingsViewController: SwipeTableViewController {
             return
         }
         
-        shares.append(Share(email1: "example@example.com", catUID: "dsaasdas", mode1: "edit"))
-        
         addView.layer.borderWidth = 1.0
         addView.layer.borderColor = UIColor.darkGray.cgColor
     }
@@ -53,7 +51,9 @@ class CategorySettingsViewController: SwipeTableViewController {
     
     func getShares() {
         db.observe(.childAdded) { (snapsnot) in
-            print(snapsnot.value)
+            let data = snapsnot.value as! NSDictionary
+            
+            self.shares.append(Share(email1: data["user_email"] as? String ?? "", usrID: data["user_uid"] as? String ?? "", mode1: data["mode"] as? String ?? "", catID: ""))
         }
     }
     
@@ -80,9 +80,49 @@ class CategorySettingsViewController: SwipeTableViewController {
     
     @IBAction func addUser(_ sender: Any) {
         let email = emailField.text ?? ""
+        var found = false
         
         if !mode.isEmpty && isValidEmail(testStr: email) {
+            let databaseRef = Database.database().reference()
             
+            databaseRef.child("Users").observe(.childAdded) { (snapshot) in
+                
+                let data = snapshot.value as! NSDictionary
+                
+                if (data["email"] as? String ?? "" == email) {
+                    
+                    self.createBinding(email: email, db_email: data["email"] as? String ?? "", db_uid: snapshot.key, mode: self.mode)
+                    found = true
+                    
+                }
+            }
+//            if !found {
+//                Toast().show(view: self.view, message: "No User Found", backgroundColor: UIColor.red)
+//            }
+            
+        }
+    }
+    
+    func createBinding(email:String, db_email:String, db_uid:String, mode:String) {
+        if (db_email != Auth.auth().currentUser?.email && !db_email.isEmpty) {
+            let user_db = Database.database().reference().child("Users").child(db_uid).child("sharedCategories")
+            
+            db.child(db_uid).setValue(["user_uid": db_uid, "user_email": db_email, "mode": mode]) {
+                (snapshot, error) in
+                
+//                if error! != nil {
+//                    Toast().show(view: self.view, message: "Something Went Wrong", backgroundColor: UIColor.red)
+//                } else {
+                Toast().show(view: self.view, message: "User Added", backgroundColor: UIColor.green, time: 4.0)
+//                }
+            }
+            
+            user_db.child(category?.id ?? "NIL").setValue(["user_id": Auth.auth().currentUser?.uid, "user_email": Auth.auth().currentUser?.email, "category_id": category?.id ?? "NIL", "mode": mode])
+            
+            
+            
+        } else {
+            Toast().show(view: self.view, message: "Cannot Add Yourself", backgroundColor: UIColor.red, time: 4.0)
         }
     }
     
