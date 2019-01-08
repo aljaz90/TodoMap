@@ -65,7 +65,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                         }
                     }
                 } else {
-                    self.dismiss(animated: true, completion: nil)
+                    self.performSegue(withIdentifier: "goToCategories", sender: self)
                 }
                 
             }
@@ -74,7 +74,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
+        //ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
     }
 
     

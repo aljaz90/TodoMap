@@ -66,6 +66,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
         
         //let todosRef = Database.database().reference(withPath: "Users").child(Auth.auth().currentUser?.uid ?? "").child("Categories")
         db.keepSynced(true)
+        tableView.delegate = self
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress))
         self.view.addGestureRecognizer(longPressRecognizer)
@@ -197,7 +198,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     
     @IBAction func addNewItem(_ sender: Any) {
         
-        if search && category?.mode == "edit"{
+        if search && (category?.mode == "edit" || !(category?.share ?? false)){
             search = false
             searchBar.placeholder = "Add a new Todo"
 //            searchBar.barTintColor = UIColor(hexString: category?.color ?? "#ffffff")
@@ -252,7 +253,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if !search && category?.mode == "edit" {
+        if !search && (category?.mode == "edit" || !(category?.share ?? false)) {
             print(searchBar.text!)
             if !(searchBar.text!.isEmpty){
                 let todo = ["text": searchBar.text!, "done": false] as [String : Any]

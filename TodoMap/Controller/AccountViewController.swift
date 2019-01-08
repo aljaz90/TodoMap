@@ -11,10 +11,10 @@ import Firebase
 
 class AccountViewController: UIViewController {
 
-    @IBOutlet weak var firstNameLabel: UILabel!
-    @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var user: UIView!
+//    @IBOutlet weak var firstNameLabel: UILabel!
+//    @IBOutlet weak var lastNameLabel: UILabel!
+//    @IBOutlet weak var emailLabel: UILabel!
+//    @IBOutlet weak var user: UIView!
     @IBOutlet weak var noUser: UIView!
     @IBOutlet weak var orLabel: UILabel!
     
@@ -29,23 +29,15 @@ class AccountViewController: UIViewController {
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-    
+
+        self.view.layer.insertSublayer(gradient, at: 0)
         // MARK: - Showing View If User is Present
 
         if Auth.auth().currentUser != nil {
-            user.isHidden = false
-            noUser.isHidden = true
-            
-            if let user = Auth.auth().currentUser {
-                emailLabel.text = user.email
-                firstNameLabel.text = "Amazing"
-                lastNameLabel.text = "Name"
-            }
             
         } else {
-            self.view.layer.insertSublayer(gradient, at: 0)
-            user.isHidden = true
-            noUser.isHidden = false
+            
+
         }
         
         orLabel.layer.cornerRadius = orLabel.frame.height/2
@@ -55,29 +47,10 @@ class AccountViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
+        //ModalTransitionMediator.instance.sendPopoverDismissed(modelChanged: true)
     }
     
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    @IBAction func changePassword(_ sender: Any) {
-        if let currentUser = Auth.auth().currentUser {
-            print("updated")
-        }
-    }
-    
-    @IBAction func logOut(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            dismiss(animated: true, completion: nil)
-        } catch {
-            fatalError("Could Not Sign Out")
-            Toast().show(view: self.view, message: "Cannot Sign Out", backgroundColor: UIColor.red)
-        }
-        
-    }
-    
-    @IBAction func deleteAccount(_ sender: Any) {
     }
 }

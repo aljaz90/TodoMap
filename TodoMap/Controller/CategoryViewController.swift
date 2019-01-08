@@ -13,14 +13,15 @@ import ChameleonFramework
 class CategoryViewController: SwipeTableViewController, ModalTransitionListener {
     
     func popoverDismissed() {
-        if Auth.auth().currentUser != nil && categoryArray.isEmpty {
-            getData()
-        }
-        else if Auth.auth().currentUser == nil {
-            categoryArray = []
-            tableView.reloadData()
-            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
-        }
+//        if Auth.auth().currentUser != nil && categoryArray.isEmpty {
+//            getData()
+//        }
+//        else if Auth.auth().currentUser == nil {
+//            di
+//            categoryArray = []
+//            tableView.reloadData()
+//            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
+//        }
     }
     
     var categoryArray : [TodoCategory] = []
@@ -34,10 +35,12 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
             // Setting up Firebase DB offline
             let todosRef = Database.database().reference(withPath: "Users/\(Auth.auth().currentUser?.uid ?? "")")
             todosRef.keepSynced(true)
+            tableView.delegate = self
             getData()
         }
         else {
-            Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
+            dismiss(animated: true, completion: nil)
+            //Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange, time: 30.0)
         }
 
         tableView.separatorStyle = .none
@@ -92,7 +95,8 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             
             if (Auth.auth().currentUser == nil){
-                Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange)
+                self.dismiss(animated: true, completion: nil)
+                //Toast().show(view: self.view, message: "Please Log In", backgroundColor: UIColor.orange)
                 return
             }
             
@@ -146,6 +150,7 @@ class CategoryViewController: SwipeTableViewController, ModalTransitionListener 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToTodos", sender: self)
+        
     }
     
     //MARK: - Preparing for seque to todosView
